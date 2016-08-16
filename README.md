@@ -4,7 +4,7 @@ This tool was created to automate the lifecycle of a Microsoft Active directory 
 
 Synopsis:
 	Create
-		Will create the user account, set mailbox properties, set random password, set distrobution group, OU and Custom attributes for PWM. For 365 users it will assign them a license as well.
+		Will create the user account, set mailbox properties, set random password, set distribution  group, OU and Custom attributes for PWM. For 365 users it will assign them a license as well.
 	Update
 		Changes the users, Email, first name, last name, middle initial, display name, username. Then emails the user.
 	Notify
