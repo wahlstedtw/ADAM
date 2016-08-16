@@ -3,6 +3,7 @@
 This tool was created to automate the lifecycle of a Microsoft Active directory account. Written in powershell it has functions such as Create, Update and Delete. It takes a csv as input and is meant to be run as a scheduled task.
 
 Synopsis:
+
 	Create
 		Will create the user account, set mailbox properties, set random password, set distribution  group, OU and Custom attributes for PWM. For 365 users it will assign them a license as well.
 	Update
