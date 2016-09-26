@@ -1,6 +1,6 @@
-# AD-account-automation
+# AD Account Automation Tool
 
-This tool was created to automate the lifecycle of a Microsoft Active directory account. Written in powershell it has functions such as Create, Update and Delete. It takes a csv as input and is meant to be run as a scheduled task.
+This tool was created to automate the lifecycle of a Microsoft active directory account. Written in powershell it has functions such as Create, Update and Delete. It takes a csv as input and is meant to be run as a scheduled task.
 
 Synopsis:
 
