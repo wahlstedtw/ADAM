@@ -1,15 +1,21 @@
-# AD Account Automation Tool
+# Active Directory Account Management [ADAM] (AMS is old name)
 
-This tool was created to automate the lifecycle of a Microsoft active directory account. Written in powershell it has functions such as Create, Update and Delete. It takes a csv as input and is meant to be run as a scheduled task.
+This tool was created to automate the life cycle of a Microsoft active directory account.
+Written in powershell it has functions such as Create, Update and Delete. It takes a csv
+as input and is meant to be run as a scheduled task.
 
 Synopsis:
 
 	Create
-		Will create the user account, set mailbox properties, set random password, set distribution  group, OU and Custom attributes for PWM. For 365 users it will assign them a license as well.
+		Will create the user account, set mailbox properties, set random password,
+		set distribution  group, OU and Custom attributes for PWM. For 365 users it will
+		assign them a license as well.
 	Update
-		Changes the users, Email, first name, last name, middle initial, display name, username. Then emails the user.
+		Changes the users, Email, first name, last name, middle initial, display name,
+		username. Then emails the user.
 	Notify
-		Removes user from all groups and stores those groups in the notes property of the user then emails the user.
+		Removes user from all groups and stores those groups in the notes property of the
+		user then emails the user.
 	Disable
 		Disables the user account, moves them to pending removals and emails the user.
 	Delete
