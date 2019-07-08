@@ -1,4 +1,4 @@
-# Active Directory Account Management [ADAM] (AMS is old name)
+# Active Directory Account Management [ADAM] (AMS is the old name)
 
 This tool was created to automate the life cycle of a Microsoft active directory account.
 Written in powershell it has functions such as Create, Update and Delete. It takes a csv
