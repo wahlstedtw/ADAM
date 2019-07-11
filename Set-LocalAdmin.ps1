@@ -11,7 +11,7 @@ Synopsis:
 #>
 
 Clear-Host
-# Import AMS general functions and Active Directory modules.
+# Import ADAM general functions and Active Directory modules.
 try {
 	Import-Module ActiveDirectory
 	Import-Module ADAMFunctions -force
@@ -34,14 +34,43 @@ CATCH [system.exception]
 }
 <# ====================================================================
 	Variables
-========================================================================
+=======================================================================
 #>
-
+# Enter your domain name.
+$domainName = "domain.com"
+# Enter the Distinguished name for each
 $group = "{LocalAdmins}"
 $keep = "{support admins}"
+
+<# ================================
+	Mail Settings
+===================================
+#>
+# Toggles emails on and off
+$sendUserMail = $true 	# Default True
+$sendAdminMail = $true 	# Default True
+
+$emailGeneralSMTP = 	"smtp.$domainName"
+
+# Only needed if the script is contacting end users
+$emailUserFrom = 		"noreply-ADAM@$domainName"
+$emailUserTo = 			""
+$emailUserSubject = 	"$ScriptInfo.Name"			# "$ Summary"
+$emailUserPriority = 	"Normal"					# Normal or High
+
+$emailAdminFrom = 		"noreply-ADAM@$domainName"	#
+$emailAdminTo = 		"admins@$domainName"		#
+$emailAdminSubject = 	"$ScriptInfo.Name Summary"	# "Account Update Summary"
+$emailAdminPriority = 	"Normal"					# Normal or High
+
+# -----------------------------------
+# $emailFile = "{emailfile}.htm"
+$failed = @()
+$success = @()
+$adminBody = @()
 <# ====================================================================
 	Start Main Function
-========================================================================
+=======================================================================
 #>
 Write-output "Starting 	$ScriptInfo.Name"
 Write-Host   "-----------------------------------------------------"
@@ -76,14 +105,14 @@ if ($sendAdminMail) {
 	if ($success.count -gt 0){
 		$adminBody += "<table border=1>"
 		$adminBody += "<tr><th>Account Modifications</th><th>Password</th></tr>"
-		foreach ($item in $success) { $priority = 'Normal'; $adminBody += "<tr><td> $($item[0]) </td> <td><font color='green'>$($item[1])</font></td></tr> " }
+		foreach ($item in $success) { $emailAdminPriority = 'Normal'; $adminBody += "<tr><td> $($item[0]) </td> <td><font color='green'>$($item[1])</font></td></tr> " }
 		$adminBody += "</table>"
 	}
 	# Information about failed items.
 	if ($failed.count -gt 0){
 		$adminBody += "<table border=1>"
 		$adminBody += "<tr><th>Errors</th></tr>"
-		foreach ($item in $failed) { $priority = 'High'; $adminBody += "<tr style='background-color: #D7978D;'><td> $($item[0]) </td></tr> " }
+		foreach ($item in $failed) { $emailAdminPriority = 'High'; $adminBody += "<tr style='background-color: #D7978D;'><td> $($item[0]) </td></tr> " }
 		$adminBody += "</table>"
 	}
 	# Information about the logs
@@ -97,12 +126,12 @@ if ($sendAdminMail) {
 	TRY
 	{
 		Send-MailMessage `
-		-From "noreply-AMS@{yourdomain}" `
-		-To "{your support team}" `
-		-Subject "Account Update Summary" `
+		-From 		"$emailAdminFrom" `
+		-To 		"$emailAdminTo" `
+		-Subject 	"$emailAdminSubject" `
 		-BodyAsHtml $adminBody `
-		-SmtpServer "SMTP.domain.name" `
-		-Priority $priority
+		-SmtpServer "$emailGeneralSMTP" `
+		-Priority 	"$emailAdminPriority"
 	}
 	CATCH [system.exception]
 	{
